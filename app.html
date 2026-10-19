@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MT Group TSP 6th BN Mdu - Duty Deployment</title>
 <script>
-var APP_VER=2610191600;
+var APP_VER=2610200335;
 (function(){try{
   var o=localStorage.getItem('duty_ota');
   if(o&&!window.__ota){
@@ -217,7 +217,7 @@ td input{font-size:var(--fs,12px)}
   <div class="card"><h2>Daily abstract - <span id="dayM"></span></h2><div class="ov2" id="day"></div></div>
   <div class="card"><h2>Monthly abstract - <span id="absM"></span></h2><div class="ov2" id="abs"></div></div>
   <div class="card"><h2>Kammi duty - <span id="lowM"></span></h2><div class="ov2" id="low"></div></div>
-  <div class="card"><h2>Holi report - <span id="holM"></span></h2><div class="hint" style="margin:0 0 8px">Holiday = munnaadi naal Evening-la irundhu antha naal Evening varai. Idhula Sentry, Course, Coy, Mt duty, Others illaadha PC names (Waiting/Weekoff/Roll call-um duty illa).</div><div class="ov2" id="hol"></div></div>
+  <div class="card"><h2>Holi report - <span id="holM"></span></h2><div class="hint" style="margin:0 0 8px">Antha naal duty update panna piragu mattum varum. Holiday = munnaadi naal Evening-la irundhu antha naal Evening varai. Idhula Sentry, Course, Coy, Mt duty, Others illaadha PC names (Waiting/Weekoff/Roll call-um duty illa).</div><div class="ov2" id="hol"></div></div>
   <div class="card"><h2>Holi Waiting count - <span id="hrM"></span></h2><div class="hint" style="margin:0 0 8px">Name-ku nera Sunday/holiday-la Waiting count, Duty count. <mark class="bo"><b>Highlight</b></mark> = indha month holiday-la Waiting-um illa, duty-um illa (Holiday = munnaadi naal Evening → antha naal Evening; Sentry/Course/Coy/Mt duty/Others mattum duty).</div><div class="ov2" id="hrk"></div></div>
   <div class="card"><h2>Waiting repeat - <span id="wrM"></span></h2><div class="hint" style="margin:0 0 8px">PC-ku 7 naal kulla thirumba Waiting vandhaalum, ellaa PC-yum mudikkirathukku munnaadi vandhaalum inga varum.</div><div class="ov2" id="wrp"></div></div>
   <div class="card"><h2>Repeat duty (gap-oda)</h2><div class="ov2" id="rep"></div></div>
@@ -747,9 +747,9 @@ function renderReports(){
   var md=monData();function totH(r){return (r.sc||r.wc)?'<span style="color:var(--rd)">'+P2(r.sc)+'</span>+<span style="color:var(--pr)">'+P2(r.wc)+'</span>='+P2(r.sc+r.wc):''}
   document.getElementById('abs').innerHTML=md.length?tbl(['Name','Sentry','Count','Waiting','Count','Weekoff','Count','Total'],md.map(function(r){return '<tr><td style="text-align:left"><b>'+esc(r.n1)+'</b><br>'+esc(r.n2)+'</td><td style="white-space:nowrap">'+r.lines.map(function(t){return esc(t)}).join('<br>')+'</td><td class="n" style="color:var(--rd);font-weight:700">'+(r.sc?P2(r.sc):'')+'</td><td class="n" style="white-space:nowrap">'+r.wd.map(fdm).join('<br>')+'</td><td class="n" style="color:var(--pr);font-weight:700">'+(r.wc?P2(r.wc):'')+'</td><td class="n" style="white-space:nowrap">'+r.od.map(fd).join('<br>')+'</td><td class="n">'+(r.oc?P2(r.oc):'')+'</td><td class="n" style="white-space:nowrap">'+totH(r)+'</td></tr>'})):'<div class="empty">Duty type panna inga varum</div>';
   var hl=holiData(),hm=document.getElementById('holM');if(hm)hm.textContent=mlabel();
-  document.getElementById('hol').innerHTML=hl.rows.length?tbl(['Date','PC names (no duty)'],hl.rows.map(function(x){return '<tr><td style="white-space:nowrap;text-align:center"><b>'+fdm(x[0])+'</b><br><span style="color:var(--mu);font-size:11px">'+esc(x[1])+'</span></td><td style="text-align:left">'+(x[2].length?x[2].map(function(t){return esc(t)}).join('<br>'):'<b>NIL</b>')+'</td></tr>'})):'<div class="empty">Indha month-la Sunday/holiday illa</div>';
+  document.getElementById('hol').innerHTML=hl.rows.length?tbl(['Date','PC names (no duty)'],hl.rows.map(function(x){return '<tr><td style="white-space:nowrap;text-align:center"><b>'+fdm(x[0])+'</b><br><span style="color:var(--mu);font-size:11px">'+esc(x[1])+'</span></td><td style="text-align:left">'+(x[2].length?x[2].map(function(t){return esc(t)}).join('<br>'):'<b>NIL</b>')+'</td></tr>'})):'<div class="empty">Holiday duty innum update aagala</div>';
   var hk=holiRank(),hmm=document.getElementById('hrM');if(hmm)hmm.textContent=mlabel();
-  document.getElementById('hrk').innerHTML=hk.rows.length&&hk.nh?tbl(['Name','Waiting','Duty'],hk.rows.map(function(r){var st=r.nx?' style="background:#fde68a;color:#111;font-weight:700"':'';return '<tr'+st+'><td style="text-align:left"><b>'+esc(r.nm)+'</b>'+(r.nx?'<br><span style="font-size:11px">Next holiday Waiting</span>':'')+'</td><td class="n" style="color:var(--pr);font-weight:700">'+(r.w.length||'')+'</td><td class="n">'+(r.o.length||'')+'</td></tr>'})):'<div class="empty">Indha month-la Sunday/holiday illa</div>';
+  document.getElementById('hrk').innerHTML=hk.rows.length&&hk.nh?tbl(['Name','Waiting','Duty'],hk.rows.map(function(r){var st=r.nx?' style="background:#fde68a;color:#111;font-weight:700"':'';return '<tr'+st+'><td style="text-align:left"><b>'+esc(r.nm)+'</b>'+(r.nx?'<br><span style="font-size:11px">Next holiday Waiting</span>':'')+'</td><td class="n" style="color:var(--pr);font-weight:700">'+(r.w.length||'')+'</td><td class="n">'+(r.o.length||'')+'</td></tr>'})):'<div class="empty">Holiday duty innum update aagala</div>';
   var wr=wRepeat(),wm=document.getElementById('wrM');if(wm)wm.textContent=mlabel();
   document.getElementById('wrp').innerHTML=wr.length?tbl(['Name','Munnadi','Ippo','Karanam'],wr.map(function(r){return '<tr><td><b>'+esc(r.nm)+'</b></td><td class="n" style="white-space:nowrap">'+fdm(r.prev)+'</td><td class="n" style="white-space:nowrap"><b>'+fdm(r.d)+'</b></td><td style="font-size:12px;color:var(--rd)">'+esc(wrTxt(r))+'</td></tr>'})):'<div class="empty">Edhuvum illa</div>';
   var l=lowData();
@@ -765,12 +765,13 @@ function woAllDays(pid){var out=[];allDatesOf(pid).forEach(function(d){var k=pid
 function earlySet(){var E={};S.names.forEach(function(p){if(!p.n.trim())return;var w=woAllDays(p.id);for(var i=1;i<w.length;i++){if(dBet(w[i-1],w[i])<7){var d=w[i],pd=prevDay(d);if(kind(S.cells[p.id+'|'+d]||'')==='wo')E[p.id+'|'+d+'|0']=1;if(kind(S.pm[p.id+'|'+pd]||'')==='wo'&&kind(S.cells[p.id+'|'+d]||'')==='wo')E[p.id+'|'+pd+'|1']=1;if(kind(S.pm[p.id+'|'+d]||'')==='wo'&&kind(S.cells[p.id+'|'+nextDay(d)]||'')!=='wo')E[p.id+'|'+d+'|1']=1}}});return E}
 function isPC(p){return /^\s*PC\b/i.test(p.n||'')}
 function holiDuty(pid,d){var v=[S.pm[pid+'|'+prevDay(d)]||'',S.cells[pid+'|'+d]||'',S.pm[pid+'|'+d]||''];return v.some(function(x){var k=kind(x);return /^s[1-4]$/.test(k)||k==='o'||k==='mo'})}
-function holiData(){var hd=S.dates.filter(isHD),pcs=S.names.filter(function(p){return p.n.trim()&&isPC(p)}),ON={s1:1,s2:1,s3:1,s4:1,mo:1,wo:1,w:1},rows=[],cnt={};
+function hdEntered(d){return S.names.some(function(p){return p.n.trim()&&(S.cells[p.id+'|'+d]||S.pm[p.id+'|'+d])})}
+function holiData(){var hd=S.dates.filter(isHD).filter(hdEntered),pcs=S.names.filter(function(p){return p.n.trim()&&isPC(p)}),ON={s1:1,s2:1,s3:1,s4:1,mo:1,wo:1,w:1},rows=[],cnt={};
  hd.forEach(function(d){var free=[];pcs.forEach(function(p){var ks=dvals(p.id+'|'+d).map(kind),on=holiDuty(p.id,d);if(!on)free.push(p.n.trim());if(ks.indexOf('w')>-1){(cnt[p.id]=cnt[p.id]||[]).push(d)}});rows.push([d,hdTxt(d),free])});
  var multi=[];pcs.forEach(function(p){var l=cnt[p.id]||[];if(l.length>1)multi.push({nm:p.n.trim(),n:l.length,ds:l})});multi.sort(function(a,b){return b.n-a.n});return{rows:rows,multi:multi}}
-function holiRank(){var hd=S.dates.filter(isHD),pcs=S.names.filter(function(p){return p.n.trim()&&isPC(p)}),ON={s1:1,s2:1,s3:1,s4:1,mo:1,wo:1},out=[];
+function holiRank(){var hd=S.dates.filter(isHD).filter(hdEntered),pcs=S.names.filter(function(p){return p.n.trim()&&isPC(p)}),ON={s1:1,s2:1,s3:1,s4:1,mo:1,wo:1},out=[];
  pcs.forEach(function(p){var w=[],o=[];hd.forEach(function(d){var ks=dvals(p.id+'|'+d).map(kind);if(ks.indexOf('w')>-1)w.push(d);if(holiDuty(p.id,d))o.push(d)});out.push({nm:p.n.trim(),w:w,o:o,nx:!w.length&&!o.length})});
- out.sort(function(a,b){return b.w.length-a.w.length||(a.nx===b.nx?0:a.nx?1:-1)});return{rows:out,nh:hd.length}}
+ if(!hd.length)out=[];out.sort(function(a,b){return b.w.length-a.w.length||(a.nx===b.nx?0:a.nx?1:-1)});return{rows:out,nh:hd.length}}
 function wRepeat(){var pcs=S.names.filter(function(p){return p.n.trim()&&isPC(p)}),W={},ev=[];
  pcs.forEach(function(p){W[p.id]=allDatesOf(p.id).filter(function(d){return cvals(p.id,d).some(function(v){return kind(v)==='w'})})});
  var need=Math.max(0,pcs.length-1),out=[];
@@ -1101,7 +1102,7 @@ async function exportPdf(){
   await saveFile(fname('pdf'),doc.output('arraybuffer'));
 }
 /* ---------- palette ---------- */
-var APPV='20261019-1600',UPDATE_URL='https://raw.githubusercontent.com/mahaantradefx-sudo/DutyApp-/main/app.html';
+var APPV='20261020-0335',UPDATE_URL='https://raw.githubusercontent.com/mahaantradefx-sudo/DutyApp-/main/app.html';
 function reloadApp(){if(isNative())location.href=new URL('index.html',location.href).href;else location.reload()}
 async function updateApp(){
   if(!isNative()){alert('Idhu APK app-la mattum velai seiyum. Web link-la eppavume latest dhaan.');return}
